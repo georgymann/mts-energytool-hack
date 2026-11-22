@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f9">
+  <title>Заявки · EnergyTool</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/applications.css">
+  <script type="module" src="/assets/js/applications.js"></script>
+</head>
+<body>
+  <header class="workspace-header">
+    <a class="brand" href="/"><strong>МТС</strong> EnergyTool</a>
+    <span>Рабочее место менеджера</span><a href="/specialist.html">Вопросы специалисту</a>
+  </header>
+  <main class="workspace">
+    <div class="page-heading">
+      <h1>Заявки</h1>
+      <button id="refresh" type="button">Обновить</button>
+    </div>
+    <section class="metrics" aria-labelledby="metrics-title">
+      <div class="section-heading">
+        <h2 id="metrics-title">Метрики пилота</h2>
+        <label class="toggle"><input id="include-demo" type="checkbox"> Учитывать демо в метриках</label>
+      </div>
+      <div id="metrics-result" aria-live="polite"></div>
+    </section>
+    <div class="work-area">
+      <section class="queue" aria-labelledby="queue-title">
+        <div class="section-heading">
+          <h2 id="queue-title">Очередь</h2>
+          <label class="sr-only" for="status-filter">Статус заявки</label>
+          <select id="status-filter">
+            <option value="">Все статусы</option>
+            <option value="new">Новые</option>
+            <option value="in_review">На разборе</option>
+            <option value="needs_info">Нужны данные</option>
+            <option value="accepted">Приняты в работу</option>
+            <option value="rejected">Отклонены</option>
+          </select>
+        </div>
+        <div id="queue-result" aria-live="polite"></div>
+      </section>
+      <section id="application" class="application" aria-label="Карточка заявки"></section>
+    </div>
+  </main>
+  <dialog id="action-dialog" aria-labelledby="dialog-title">
+    <div class="section-heading">
+      <h2 id="dialog-title"></h2>
+      <button type="button" data-close-dialog>Закрыть</button>
+    </div>
+    <div id="dialog-content"></div>
+    <p id="dialog-error" class="feedback error" role="alert" hidden></p>
+  </dialog>
+</body>
+</html>

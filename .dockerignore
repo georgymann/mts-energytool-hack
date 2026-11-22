@@ -1,0 +1,16 @@
+.git
+.env
+.env.*
+data
+backend/var
+backend/api
+**/__pycache__
+**/*.pyc
+**/.venv
+**/venv
+**/node_modules
+**/.DS_Store
+**/*_test.go
+output
+tmp
+*.log

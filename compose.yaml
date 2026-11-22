@@ -1,0 +1,51 @@
+name: energytool-web
+services:
+  consultation:
+    build:
+      context: .
+      dockerfile: agent/Dockerfile
+    env_file: ${WEB_ENV_FILE:-.env}
+    environment:
+      DATA_DIR: /data
+      ML_HTTP_HOST: 0.0.0.0
+      ML_REQUEST_BUDGET: "240"
+      WEB_RETRIEVAL_MODE: ${WEB_RETRIEVAL_MODE:-n2}
+      EXPERT_KB_SNAPSHOT: /knowledge/expert-kb.json
+    volumes:
+      - ./data:/data:ro
+      - knowledge:/knowledge:ro
+    init: true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/health/ready', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+  backend:
+    build: ./backend
+    environment:
+      ML_SERVICE_URL: http://consultation:8090
+      ML_TIMEOUT: 250s
+      OPERATOR_TOKEN: ${OPERATOR_TOKEN:-local-demo-operator}
+      EXPERT_KB_SNAPSHOT: /app/knowledge/expert-kb.json
+      DEMO_MODE: ${DEMO_MODE:-true}
+    volumes:
+      - sessions:/app/var
+      - knowledge:/app/knowledge
+    depends_on:
+      consultation:
+        condition: service_healthy
+    init: true
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      BACKEND_URL: http://backend:8080
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8768}:8767"
+    depends_on:
+      - backend
+    init: true
+volumes:
+  sessions:
+  knowledge:

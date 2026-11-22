@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /*?*
+Disallow: /shop/checkout
+Sitemap: https://energytool.mts.ru/sitemap.xml

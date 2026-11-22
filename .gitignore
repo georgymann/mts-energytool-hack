@@ -1,0 +1,30 @@
+# Local settings
+.env
+.env.*
+!.env.example
+
+# Runtime data
+/data/
+/backend/var/
+/backend/api
+*.db
+*.sqlite
+*.sqlite3
+
+# Python and development tools
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+node_modules/
+
+# Generated files and editor settings
+/output/
+/tmp/
+*.log
+.DS_Store
+.idea/
+.vscode/
